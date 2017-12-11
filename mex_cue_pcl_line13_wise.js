@@ -20,38 +20,38 @@ var BottleSorterct = null,
     BottleSortertimeStop = 60, //NOTE: Timestop
     BottleSorterWorktime = 0.99, //NOTE: Intervalo de tiempo en minutos para actualizar el log
     BottleSorterflagRunning = false;
-var Fillerct = null,
-    Fillerresults = null,
-    CntInFiller = null,
-    CntOutFiller = null,
-    Filleractual = 0,
-    Fillertime = 0,
-    Fillersec = 0,
-    FillerflagStopped = false,
-    Fillerstate = 0,
-    Fillerspeed = 0,
-    FillerspeedTemp = 0,
-    FillerflagPrint = 0,
-    FillersecStop = 0,
-    FillerdeltaRejected = null,
-    FillerONS = false,
-    FillertimeStop = 60, //NOTE: Timestop
-    FillerWorktime = 0.99, //NOTE: Intervalo de tiempo en minutos para actualizar el log
-    FillerflagRunning = false,
-    FillerRejectFlag = false,
-    FillerReject,
-    FillerVerify = (function(){
+var FillerCapperct = null,
+    FillerCapperresults = null,
+    CntInFillerCapper = null,
+    CntOutFillerCapper = null,
+    FillerCapperactual = 0,
+    FillerCappertime = 0,
+    FillerCappersec = 0,
+    FillerCapperflagStopped = false,
+    FillerCapperstate = 0,
+    FillerCapperspeed = 0,
+    FillerCapperspeedTemp = 0,
+    FillerCapperflagPrint = 0,
+    FillerCappersecStop = 0,
+    FillerCapperdeltaRejected = null,
+    FillerCapperONS = false,
+    FillerCappertimeStop = 60, //NOTE: Timestop
+    FillerCapperWorktime = 0.99, //NOTE: Intervalo de tiempo en minutos para actualizar el log
+    FillerCapperflagRunning = false,
+    FillerCapperRejectFlag = false,
+    FillerCapperReject,
+    FillerCapperVerify = (function(){
       try{
-        FillerReject = fs.readFileSync('FillerRejected.json')
-        if(FillerReject.toString().indexOf('}') > 0 && FillerReject.toString().indexOf('{\"rejected\":') != -1){
-          FillerReject = JSON.parse(FillerReject)
+        FillerCapperReject = fs.readFileSync('FillerCapperRejected.json')
+        if(FillerCapperReject.toString().indexOf('}') > 0 && FillerCapperReject.toString().indexOf('{\"rejected\":') != -1){
+          FillerCapperReject = JSON.parse(FillerCapperReject)
         }else{
           throw 12121212
         }
       }catch(err){
         if(err.code == 'ENOENT' || err == 12121212){
-          fs.writeFileSync('FillerRejected.json','{"rejected":0}') //NOTE: Change the object to what it usually is.
-          FillerReject = {
+          fs.writeFileSync('FillerCapperRejected.json','{"rejected":0}') //NOTE: Change the object to what it usually is.
+          FillerCapperReject = {
             rejected : 0
           }
         }
@@ -283,9 +283,9 @@ client1.on('connect', function(err) {
     setInterval(function(){
         client1.readHoldingRegisters(0, 16).then(function(resp) {
           CntOutBottleSorter =  joinWord(resp.register[14], resp.register[15]);
-          CntInFiller = CntOutBottleSorter;
-          //CntInFiller = joinWord(resp.register[12], resp.register[13]);
-          CntOutFiller = joinWord(resp.register[6], resp.register[7]);
+          CntInFillerCapper = CntOutBottleSorter;
+          //CntInFillerCapper = joinWord(resp.register[12], resp.register[13]);
+          CntOutFillerCapper = joinWord(resp.register[6], resp.register[7]);
           CntOutCapSupply = joinWord(resp.register[4], resp.register[5]);
           CntInLabeller       = joinWord(resp.register[2], resp.register[3]);
           CntOutLabeller      = joinWord(resp.register[0], resp.register[1]);
@@ -350,77 +350,77 @@ client1.on('connect', function(err) {
                 BottleSortertime = Date.now()
               }
         //------------------------------------------BottleSorter----------------------------------------------
-        //------------------------------------------Filler----------------------------------------------
-              Fillerct = CntOutFiller // NOTE: igualar al contador de salida
-              if (!FillerONS && Fillerct) {
-                FillerspeedTemp = Fillerct
-                Fillersec = Date.now()
-                FillerONS = true
-                Fillertime = Date.now()
+        //------------------------------------------FillerCapper----------------------------------------------
+              FillerCapperct = CntOutFillerCapper // NOTE: igualar al contador de salida
+              if (!FillerCapperONS && FillerCapperct) {
+                FillerCapperspeedTemp = FillerCapperct
+                FillerCappersec = Date.now()
+                FillerCapperONS = true
+                FillerCappertime = Date.now()
               }
-              if(Fillerct > Filleractual){
-                if(FillerflagStopped){
-                  Fillerspeed = Fillerct - FillerspeedTemp
-                  FillerspeedTemp = Fillerct
-                  Fillersec = Date.now()
-                  FillerdeltaRejected = null
-                  FillerRejectFlag = false
-                  Fillertime = Date.now()
+              if(FillerCapperct > FillerCapperactual){
+                if(FillerCapperflagStopped){
+                  FillerCapperspeed = FillerCapperct - FillerCapperspeedTemp
+                  FillerCapperspeedTemp = FillerCapperct
+                  FillerCappersec = Date.now()
+                  FillerCapperdeltaRejected = null
+                  FillerCapperRejectFlag = false
+                  FillerCappertime = Date.now()
                 }
-                FillersecStop = 0
-                Fillerstate = 1
-                FillerflagStopped = false
-                FillerflagRunning = true
-              } else if( Fillerct == Filleractual ){
-                if(FillersecStop == 0){
-                  Fillertime = Date.now()
-                  FillersecStop = Date.now()
+                FillerCappersecStop = 0
+                FillerCapperstate = 1
+                FillerCapperflagStopped = false
+                FillerCapperflagRunning = true
+              } else if( FillerCapperct == FillerCapperactual ){
+                if(FillerCappersecStop == 0){
+                  FillerCappertime = Date.now()
+                  FillerCappersecStop = Date.now()
                 }
-                if( ( Date.now() - ( FillertimeStop * 1000 ) ) >= FillersecStop ){
-                  Fillerspeed = 0
-                  Fillerstate = 2
-                  FillerspeedTemp = Fillerct
-                  FillerflagStopped = true
-                  FillerflagRunning = false
-                  if(CntInFiller - CntOutFiller - FillerReject.rejected != 0 && ! FillerRejectFlag){
-                    FillerdeltaRejected = CntInFiller - CntOutFiller - FillerReject.rejected
-                    FillerReject.rejected = CntInFiller - CntOutFiller
-                    fs.writeFileSync('FillerRejected.json','{"rejected": ' + FillerReject.rejected + '}')
-                    FillerRejectFlag = true
+                if( ( Date.now() - ( FillerCappertimeStop * 1000 ) ) >= FillerCappersecStop ){
+                  FillerCapperspeed = 0
+                  FillerCapperstate = 2
+                  FillerCapperspeedTemp = FillerCapperct
+                  FillerCapperflagStopped = true
+                  FillerCapperflagRunning = false
+                  if(CntInFillerCapper - CntOutFillerCapper - FillerCapperReject.rejected != 0 && ! FillerCapperRejectFlag){
+                    FillerCapperdeltaRejected = CntInFillerCapper - CntOutFillerCapper - FillerCapperReject.rejected
+                    FillerCapperReject.rejected = CntInFillerCapper - CntOutFillerCapper
+                    fs.writeFileSync('FillerCapperRejected.json','{"rejected": ' + FillerCapperReject.rejected + '}')
+                    FillerCapperRejectFlag = true
                   }else{
-                    FillerdeltaRejected = null
+                    FillerCapperdeltaRejected = null
                   }
-                  FillerflagPrint = 1
+                  FillerCapperflagPrint = 1
                 }
               }
-              Filleractual = Fillerct
-              if(Date.now() - 60000 * FillerWorktime >= Fillersec && FillersecStop == 0){
-                if(FillerflagRunning && Fillerct){
-                  FillerflagPrint = 1
-                  FillersecStop = 0
-                  Fillerspeed = Fillerct - FillerspeedTemp
-                  FillerspeedTemp = Fillerct
-                  Fillersec = Date.now()
+              FillerCapperactual = FillerCapperct
+              if(Date.now() - 60000 * FillerCapperWorktime >= FillerCappersec && FillerCappersecStop == 0){
+                if(FillerCapperflagRunning && FillerCapperct){
+                  FillerCapperflagPrint = 1
+                  FillerCappersecStop = 0
+                  FillerCapperspeed = FillerCapperct - FillerCapperspeedTemp
+                  FillerCapperspeedTemp = FillerCapperct
+                  FillerCappersec = Date.now()
                 }
               }
-              Fillerresults = {
-                ST: Fillerstate,
-                CPQI : CntInFiller,
-                CPQO : CntOutFiller,
-                CPQR : FillerdeltaRejected,
-                SP: Fillerspeed
+              FillerCapperresults = {
+                ST: FillerCapperstate,
+                CPQI : CntInFillerCapper,
+                CPQO : CntOutFillerCapper,
+                CPQR : FillerCapperdeltaRejected,
+                SP: FillerCapperspeed
               }
-              if (FillerflagPrint == 1) {
-                for (var key in Fillerresults) {
-                  if( Fillerresults[key] != null && ! isNaN(Fillerresults[key]) )
+              if (FillerCapperflagPrint == 1) {
+                for (var key in FillerCapperresults) {
+                  if( FillerCapperresults[key] != null && ! isNaN(FillerCapperresults[key]) )
                   //NOTE: Cambiar path
-                  fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_Filler_L13.log', 'tt=' + Fillertime + ',var=' + key + ',val=' + Fillerresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_FillerCapper_L13.log', 'tt=' + FillerCappertime + ',var=' + key + ',val=' + FillerCapperresults[key] + '\n')
                 }
-                FillerflagPrint = 0
-                FillersecStop = 0
-                Fillertime = Date.now()
+                FillerCapperflagPrint = 0
+                FillerCappersecStop = 0
+                FillerCappertime = Date.now()
               }
-        //------------------------------------------Filler----------------------------------------------
+        //------------------------------------------FillerCapper----------------------------------------------
         //------------------------------------------CapSupply----------------------------------------------
               CapSupplyct = CntOutCapSupply // NOTE: igualar al contador de salida
               if (!CapSupplyONS && CapSupplyct) {
