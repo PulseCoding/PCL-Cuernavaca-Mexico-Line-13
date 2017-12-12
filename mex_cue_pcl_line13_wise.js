@@ -289,8 +289,8 @@ client1.on('connect', function(err) {
           CntOutCapSupply = joinWord(resp.register[4], resp.register[5]);
           CntInLabeller       = joinWord(resp.register[2], resp.register[3]);
           CntOutLabeller      = joinWord(resp.register[0], resp.register[1]);
-          CntInLabelWatcher   = joinWord(resp.register[10], resp.register[11]);
-          CntOutLabelWatcher  = joinWord(resp.register[8], resp.register[9]);
+          CntOutLabelWatcher   = joinWord(resp.register[10], resp.register[11]);
+          CntInLabelWatcher  = joinWord(resp.register[8], resp.register[9]);
         //------------------------------------------BottleSorter----------------------------------------------
               BottleSorterct = CntOutBottleSorter // NOTE: igualar al contador de salida
               if (!BottleSorterONS && BottleSorterct) {
