@@ -344,6 +344,7 @@ client1.on('connect', function(err) {
                   if( BottleSorterresults[key] != null && ! isNaN(BottleSorterresults[key]) )
                   //NOTE: Cambiar path
                   fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_BottleSorter_L13.log', 'tt=' + BottleSortertime + ',var=' + key + ',val=' + BottleSorterresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGSFAKE/mex_pcl_BottleSorter_L13.log', 'tt=' + BottleSortertime + ',var=' + key + ',val=' + BottleSorterresults[key] + '\n')
                 }
                 BottleSorterflagPrint = 0
                 BottleSortersecStop = 0
@@ -415,6 +416,7 @@ client1.on('connect', function(err) {
                   if( FillerCapperresults[key] != null && ! isNaN(FillerCapperresults[key]) )
                   //NOTE: Cambiar path
                   fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_FillerCapper_L13.log', 'tt=' + FillerCappertime + ',var=' + key + ',val=' + FillerCapperresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGSFAKE/mex_pcl_FillerCapper_L13.log', 'tt=' + FillerCappertime + ',var=' + key + ',val=' + FillerCapperresults[key] + '\n')
                 }
                 FillerCapperflagPrint = 0
                 FillerCappersecStop = 0
@@ -474,6 +476,7 @@ client1.on('connect', function(err) {
                   if( CapSupplyresults[key] != null && ! isNaN(CapSupplyresults[key]) )
                   //NOTE: Cambiar path
                   fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_CapSupply_L13.log', 'tt=' + CapSupplytime + ',var=' + key + ',val=' + CapSupplyresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGSFAKE/mex_pcl_CapSupply_L13.log', 'tt=' + CapSupplytime + ',var=' + key + ',val=' + CapSupplyresults[key] + '\n')
                 }
                 CapSupplyflagPrint = 0
                 CapSupplysecStop = 0
@@ -545,6 +548,7 @@ client1.on('connect', function(err) {
                   if( Labellerresults[key] != null && ! isNaN(Labellerresults[key]) )
                   //NOTE: Cambiar path
                   fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_Labeller_L13.log', 'tt=' + Labellertime + ',var=' + key + ',val=' + Labellerresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGSFAKE/mex_pcl_Labeller_L13.log', 'tt=' + Labellertime + ',var=' + key + ',val=' + Labellerresults[key] + '\n')
                 }
                 LabellerflagPrint = 0
                 LabellersecStop = 0
@@ -616,6 +620,7 @@ client1.on('connect', function(err) {
                   if( LabelWatcherresults[key] != null && ! isNaN(LabelWatcherresults[key]) )
                   //NOTE: Cambiar path
                   fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_LabelWatcher_L13.log', 'tt=' + LabelWatchertime + ',var=' + key + ',val=' + LabelWatcherresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGSFAKE/mex_pcl_LabelWatcher_L13.log', 'tt=' + LabelWatchertime + ',var=' + key + ',val=' + LabelWatcherresults[key] + '\n')
                 }
                 LabelWatcherflagPrint = 0
                 LabelWatchersecStop = 0
@@ -695,6 +700,7 @@ client2.on('connect', function(err) {
                   if( CasePackerresults[key] != null && ! isNaN(CasePackerresults[key]) )
                   //NOTE: Cambiar path
                   fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_CasePacker_L13.log', 'tt=' + CasePackertime + ',var=' + key + ',val=' + CasePackerresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGSFAKE/mex_pcl_CasePacker_L13.log', 'tt=' + CasePackertime + ',var=' + key + ',val=' + CasePackerresults[key] + '\n')
                 }
                 CasePackerflagPrint = 0
                 CasePackersecStop = 0
@@ -754,6 +760,7 @@ client2.on('connect', function(err) {
                   if( CaseFormerresults[key] != null && ! isNaN(CaseFormerresults[key]) )
                   //NOTE: Cambiar path
                   fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_CaseFormer_L13.log', 'tt=' + CaseFormertime + ',var=' + key + ',val=' + CaseFormerresults[key] + '\n')
+                  fs.appendFileSync('C:/PULSE/L13_LOGSFAKE/mex_pcl_CaseFormer_L13.log', 'tt=' + CaseFormertime + ',var=' + key + ',val=' + CaseFormerresults[key] + '\n')
                 }
                 CaseFormerflagPrint = 0
                 CaseFormersecStop = 0
@@ -763,6 +770,7 @@ client2.on('connect', function(err) {
             /*----------------------------------------------------------------------------------EOL----------------------------------------------------------------------------------*/
                   if(secEOL>=60 && CntOutEOL){
                     fs.appendFileSync("C:/PULSE/L13_LOGS/mex_pcl_EOL_l13.log","tt="+Date.now()+",var=EOL"+",val="+CntOutEOL+"\n");
+                    fs.appendFileSync("C:/PULSE/L13_LOGSFAKE/mex_pcl_EOL_l13.log","tt="+Date.now()+",var=EOL"+",val="+CntOutEOL+"\n");
                     secEOL=0;
                   }else{
                     secEOL++;
