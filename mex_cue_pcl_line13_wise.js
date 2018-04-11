@@ -537,7 +537,7 @@ client1.on('connect', function(err) {
                 ST: Labellerstate,
                 CPQI : CntInLabeller,
                 CPQO : CntOutLabeller,
-                CPQR : LabellerdeltaRejected,
+                //CPQR : LabellerdeltaRejected,
                 SP: Labellerspeed
               }
               if (LabellerflagPrint == 1) {
