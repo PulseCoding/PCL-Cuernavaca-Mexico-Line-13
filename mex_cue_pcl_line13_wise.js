@@ -756,15 +756,15 @@ client2.on('connect', function(err) {
   });
   function getRejects() {
     var FillerCapperDif = CntInFillerCapper - CntOutFillerCapper
-    fs.appendFileSync('C:/PULSE/C:/PULSE/L13_LOGS/mex_pcl_LOGS/mex_pcl_FillerCapper_L13.log', 'tt=' + Date.now() + ',var=CPQR,val=' + eval(FillerCapperDif - FillerCapperReject.rejected) + '\n')
+    fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_FillerCapper_L13.log', 'tt=' + Date.now() + ',var=CPQR,val=' + eval(FillerCapperDif - FillerCapperReject.rejected) + '\n')
     FillerCapperReject.rejected = FillerCapperDif
     fs.writeFileSync('FillerCapperRejected.json', '{"rejected": ' + FillerCapperReject.rejected + '}')
     var LabellerDif = CntInLabeller - CntOutLabeller
-    fs.appendFileSync('C:/PULSE/C:/PULSE/L13_LOGS/mex_pcl_LOGS/mex_pcl_Labeller_L13.log', 'tt=' + Date.now() + ',var=CPQR,val=' + eval(LabellerDif - LabellerReject.rejected) + '\n')
+    fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_Labeller_L13.log', 'tt=' + Date.now() + ',var=CPQR,val=' + eval(LabellerDif - LabellerReject.rejected) + '\n')
     LabellerReject.rejected = LabellerDif
     fs.writeFileSync('LabellerRejected.json', '{"rejected": ' + LabellerReject.rejected + '}')
     var LabelWatcherDif = CntInLabelWatcher - CntOutLabelWatcher
-    fs.appendFileSync('C:/PULSE/C:/PULSE/L13_LOGS/mex_pcl_LOGS/mex_pcl_LabelWatcher_L13.log', 'tt=' + Date.now() + ',var=CPQR,val=' + eval(LabelWatcherDif - LabelWatcherReject.rejected) + '\n')
+    fs.appendFileSync('C:/PULSE/L13_LOGS/mex_pcl_LabelWatcher_L13.log', 'tt=' + Date.now() + ',var=CPQR,val=' + eval(LabelWatcherDif - LabelWatcherReject.rejected) + '\n')
     LabelWatcherReject.rejected = LabelWatcherDif
     fs.writeFileSync('LabelWatcherRejected.json', '{"rejected": ' + LabelWatcherReject.rejected + '}')
   }
