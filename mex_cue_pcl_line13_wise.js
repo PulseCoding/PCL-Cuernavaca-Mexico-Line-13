@@ -768,8 +768,8 @@ client2.on('connect', function(err) {
     LabelWatcherReject.rejected = LabelWatcherDif
     fs.writeFileSync('LabelWatcherRejected.json', '{"rejected": ' + LabelWatcherReject.rejected + '}')
   }
-  setTimeout(getRejects, 60000);
-  var storeReject = setInterval(getRejects, 1740000);
+  //setTimeout(getRejects, 60000);
+  //var storeReject = setInterval(getRejects, 1740000);
 }catch(err){
     fs.appendFileSync("error.log",err + '\n');
 }
